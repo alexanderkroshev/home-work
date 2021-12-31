@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class AccountServiceTest {
@@ -34,7 +35,6 @@ class AccountServiceTest {
         long clientId = 1L;
         long contractNumber = 111L;
 
-
         when(accountRepository.getAllAccountsByClientId(clientId)).thenReturn(accounts);
 
         assertTrue(accountService.isClientHasContract(clientId, contractNumber));
@@ -49,9 +49,27 @@ class AccountServiceTest {
         long contractNumber = 111L;
 
         when(accountRepository.getAllAccountsByClientId(clientId)).thenReturn(accounts);
-
         assertFalse(accountService.isClientHasContract(clientId, contractNumber));
     }
+
+    @Test
+    void deleteAccountFromClient() {
+        Set<Long> accounts = new HashSet<>();
+        accounts.add(1L);
+        accounts.add(2L);
+
+        long clientId = 1L;
+        long contractForRemove = 2L;
+
+        when(accountRepository.getAllAccountsByClientId(clientId)).thenReturn(accounts);
+        accountService.deleteAccountFromClient(clientId, contractForRemove);
+
+        accounts.remove(2L);
+        assertEquals(accounts, accountRepository.getAllAccountsByClientId(clientId));
+
+        verify(accountRepository).updateClient(clientId, accounts);
+    }
+
 
     @Test
     void repositoryHasTreeMethods() {
@@ -62,5 +80,6 @@ class AccountServiceTest {
     void serviceHasTreeMethods() {
         assertEquals(2, AccountService.class.getMethods().length - Object.class.getMethods().length);
     }
+
 
 }
