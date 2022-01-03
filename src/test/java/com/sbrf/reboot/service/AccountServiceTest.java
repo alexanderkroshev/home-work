@@ -8,6 +8,8 @@ import org.mockito.Mockito;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -59,17 +61,16 @@ class AccountServiceTest {
         accounts.add(2L);
 
         long clientId = 1L;
-        long contractForRemove = 2L;
+        long contractToRemove = 2L;
 
         when(accountRepository.getAllAccountsByClientId(clientId)).thenReturn(accounts);
-        accountService.deleteAccountFromClient(clientId, contractForRemove);
-
-        accounts.remove(2L);
-        assertEquals(accounts, accountRepository.getAllAccountsByClientId(clientId));
-
+        accountService.deleteAccountFromClient(clientId, contractToRemove);
+        assertEquals(
+                Stream.of(1L).collect(Collectors.toSet()),
+                accountRepository.getAllAccountsByClientId(clientId)
+        );
         verify(accountRepository).updateClient(clientId, accounts);
     }
-
 
     @Test
     void repositoryHasTreeMethods() {
@@ -80,6 +81,5 @@ class AccountServiceTest {
     void serviceHasTreeMethods() {
         assertEquals(2, AccountService.class.getMethods().length - Object.class.getMethods().length);
     }
-
 
 }

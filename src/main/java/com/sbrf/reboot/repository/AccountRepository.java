@@ -8,7 +8,4 @@ public interface AccountRepository {
 
     void updateClient(long clientId, Set<Long> contracts);
 
-
-
-
 }
