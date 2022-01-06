@@ -22,10 +22,8 @@ public class FileAccountRepository implements AccountRepository {
         HashMap<Long, HashSet<Long>> clients = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader((filePath)))) {
             String line;
-
             long number;
             HashSet<Long> numbers;
-
             while ((line = reader.readLine()) != null) {
                 if (line.contains("clientId")) {
                     clientId = Integer.parseInt(line.replaceAll("[^0-9]", ""));
@@ -41,7 +39,5 @@ public class FileAccountRepository implements AccountRepository {
             }
         }
         return clients.get(clientId);
-
-
     }
 }
