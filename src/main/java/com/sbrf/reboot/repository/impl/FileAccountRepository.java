@@ -3,7 +3,6 @@ package com.sbrf.reboot.repository.impl;
 import com.sbrf.reboot.AccountRepository;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,7 +20,7 @@ public class FileAccountRepository implements AccountRepository {
     @Override
     public Set<Long> getAllAccountsByClientId(long clientId) throws IOException {
         HashMap<Long, HashSet<Long>> clients = new HashMap<>();
-              try (BufferedReader reader = new BufferedReader(new FileReader((filePath)))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader((filePath)))) {
             String line;
 
             long number;
