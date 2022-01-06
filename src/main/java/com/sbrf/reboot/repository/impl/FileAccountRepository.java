@@ -19,12 +19,11 @@ public class FileAccountRepository implements AccountRepository {
     }
 
     @Override
-    public Set<Long> getAllAccountsByClientId(long clientId) throws FileNotFoundException {
+    public Set<Long> getAllAccountsByClientId(long clientId) throws IOException {
         HashMap<Long, HashSet<Long>> clients = new HashMap<>();
-        //String inputFileName = "src/com/company/resources/Accounts.txt";
-        try (BufferedReader reader = new BufferedReader(new FileReader((filePath)))) {
+              try (BufferedReader reader = new BufferedReader(new FileReader((filePath)))) {
             String line;
-            //  long clientId;
+
             long number;
             HashSet<Long> numbers;
 
@@ -41,13 +40,6 @@ public class FileAccountRepository implements AccountRepository {
                     }
                 }
             }
-
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//            throw new FileNotFoundException();
-//
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return clients.get(clientId);
 
