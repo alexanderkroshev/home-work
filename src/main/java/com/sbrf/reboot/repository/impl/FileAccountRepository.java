@@ -20,24 +20,27 @@ public class FileAccountRepository implements AccountRepository {
     @Override
     public Set<Long> getAllAccountsByClientId(long clientId) throws IOException {
         HashMap<Long, HashSet<Long>> clients = new HashMap<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader((filePath)))) {
-            String line;
-            long number;
-            HashSet<Long> numbers;
-            while ((line = reader.readLine()) != null) {
-                if (line.contains("clientId")) {
-                    clientId = Integer.parseInt(line.replaceAll("[^0-9]", ""));
-                    number = Integer.parseInt(reader.readLine().replaceAll("[^0-9]", ""));
-                    if (clients.containsKey(clientId))
-                        clients.get(clientId).add(number);
-                    else {
-                        numbers = new HashSet<>();
-                        numbers.add(number);
-                        clients.put(clientId, numbers);
-                    }
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        String line;
+        long number;
+        HashSet<Long> numbers;
+        while ((line = reader.readLine()) != null) {
+            if (line.contains("clientId")) {
+                clientId = Integer.parseInt(line.replaceAll("[^0-9]", ""));
+                number = Integer.parseInt(reader.readLine().replaceAll("[^0-9]", ""));
+                if (clients.containsKey(clientId))
+                    clients.get(clientId).add(number);
+                else {
+                    numbers = new HashSet<>();
+                    numbers.add(number);
+                    clients.put(clientId, numbers);
                 }
             }
         }
+        reader.close();
         return clients.get(clientId);
     }
+
+
+
 }
