@@ -4,12 +4,10 @@ import com.sbrf.reboot.AccountRepository;
 import com.sbrf.reboot.repository.impl.FileAccountRepository;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FileAccountRepositoryTest {
@@ -32,17 +30,5 @@ class FileAccountRepositoryTest {
 
         actualAccounts.forEach(e -> assertTrue(expected.contains(e)));
     }
-
-    @Test
-    void failGetAllAccountsByClientId() {
-        long clientId = 1L;
-
-        String filePath = "somePath";
-
-        accountRepository = new FileAccountRepository(filePath);
-
-        assertThrows(FileNotFoundException.class, () -> accountRepository.getAllAccountsByClientId(clientId));
-    }
-
 
 }

@@ -1,46 +1,41 @@
 package com.sbrf.reboot.repository.impl;
 
 import com.sbrf.reboot.AccountRepository;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class FileAccountRepository implements AccountRepository {
 
-    private final String filePath;
+    private final String fileName;
 
-    public FileAccountRepository(String filePath) {
-        this.filePath = filePath;
+    public FileAccountRepository(String fileName) {
+        this.fileName = fileName;
     }
 
     @Override
-    public Set<Long> getAllAccountsByClientId(long clientId) throws IOException {
-        HashMap<Long, HashSet<Long>> clients = new HashMap<>();
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line;
-        long number;
-        HashSet<Long> numbers;
-        while ((line = reader.readLine()) != null) {
-            if (line.contains("clientId")) {
-                clientId = Integer.parseInt(line.replaceAll("[^0-9]", ""));
-                number = Integer.parseInt(reader.readLine().replaceAll("[^0-9]", ""));
-                if (clients.containsKey(clientId))
-                    clients.get(clientId).add(number);
-                else {
-                    numbers = new HashSet<>();
-                    numbers.add(number);
-                    clients.put(clientId, numbers);
+    public Set<Long> getAllAccountsByClientId(long clientId) {
+        HashSet<Long> numbers = new HashSet<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            long number;
+            int clientIdFromFile;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("c")) {
+                    clientIdFromFile = Integer.parseInt(line.replaceAll("[^0-9]", ""));
+                    if (clientId == clientIdFromFile) {
+                        number = Integer.parseInt(reader.readLine().replaceAll("[^0-9]", ""));
+                        numbers.add(number);
+                    }
                 }
             }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-        reader.close();
-        return clients.get(clientId);
+        return numbers;
     }
-
-
 
 }
