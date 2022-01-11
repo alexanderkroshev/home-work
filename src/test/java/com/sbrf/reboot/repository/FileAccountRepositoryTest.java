@@ -3,8 +3,6 @@ package com.sbrf.reboot.repository;
 import com.sbrf.reboot.AccountRepository;
 import com.sbrf.reboot.repository.impl.FileAccountRepository;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +13,7 @@ class FileAccountRepositoryTest {
     AccountRepository accountRepository;
 
     @Test
-    void onlyPersonalAccounts() throws IOException {
+    void onlyPersonalAccounts()  {
         String filePath = "src/main/resources/Accounts.txt";
         accountRepository = new FileAccountRepository(filePath);
 
@@ -29,6 +27,12 @@ class FileAccountRepositoryTest {
         }};
 
         actualAccounts.forEach(e -> assertTrue(expected.contains(e)));
+    }
+
+  @Test
+    void updateNumberByClientId() {
+
+
     }
 
 }
