@@ -21,27 +21,27 @@ public class FileAccountRepository implements AccountRepository {
     @Override
     public Set<Long> getAllAccountsByClientId(long clientId) {
         HashSet<Long> numbers = new HashSet<>();
-        String stringFromFile = readFile();
-        List<Integer> clientPos = getPositionsByPattern(stringFromFile, "clientId");
-        List<Integer> numbersPos = getPositionsByPattern(stringFromFile, "number");
+        String string = readFile();
+        List<Integer> clientPos = getPositionsByPattern(string, "clientId");
+        List<Integer> numbersPos = getPositionsByPattern(string, "number");
         for ( int i = 0; i < clientPos.size(); i++ ) {
-            if (getValue(stringFromFile, clientPos.get(i)) == clientId)
-                numbers.add(getValue(stringFromFile, numbersPos.get(i)));
+            if (readValue(string, clientPos.get(i)) == clientId)
+                numbers.add(readValue(string, numbersPos.get(i)));
         }
         return numbers;
     }
 
-    public void updateNumberByClientId(long clientId, long oldNumber, long newNumber) {
-        String stringFromFile = readFile();
-        List<Integer> clientPos = getPositionsByPattern(stringFromFile, "clientId");
-        List<Integer> numbersPos = getPositionsByPattern(stringFromFile, "number");
+    public void updateAccountByClientId(long clientId, long oldNumber, long newNumber) {
+        String string = readFile();
+        List<Integer> clientPos = getPositionsByPattern(string, "clientId");
+        List<Integer> numbersPos = getPositionsByPattern(string, "number");
         for ( int i = 0; i < clientPos.size(); i++ ) {
-            if (getValue(stringFromFile, clientPos.get(i)) == clientId)
-                if (getValue(stringFromFile, numbersPos.get(i)) == oldNumber) {
+            if (readValue(string, clientPos.get(i)) == clientId)
+                if (readValue(string, numbersPos.get(i)) == oldNumber) {
                     try (PrintWriter out = new PrintWriter(fileName)) {
-                        out.write(updateString(stringFromFile, numbersPos.get(i), newNumber));
+                        out.write(updateValue(string, numbersPos.get(i), newNumber));
                     } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                        throw new RuntimeException(e);
                     }
                     break;
                 }
@@ -55,12 +55,12 @@ public class FileAccountRepository implements AccountRepository {
                 sb.append((char) ch);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return sb.toString();
     }
 
-    private String updateString(String str, Integer pos, long number) {
+    private String updateValue(String str, Integer pos, long number) {
         List<Integer> positions = new ArrayList<>();
         for ( int i = pos; i < str.length(); i++ ) {
             if (Character.isDigit(str.charAt(i)))
@@ -81,7 +81,7 @@ public class FileAccountRepository implements AccountRepository {
         return positions;
     }
 
-    private Long getValue(String str, Integer pos) {
+    private Long readValue(String str, Integer pos) {
         char[] chars = str.toCharArray();
         StringBuilder valueStr = new StringBuilder();
         for ( int i = pos; i < str.length(); i++ ) {
