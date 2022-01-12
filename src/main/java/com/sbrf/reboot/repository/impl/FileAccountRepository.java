@@ -1,7 +1,7 @@
 package com.sbrf.reboot.repository.impl;
 
 import com.sbrf.reboot.AccountRepository;
-
+import lombok.RequiredArgsConstructor;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,33 +10,31 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@RequiredArgsConstructor
 public class FileAccountRepository implements AccountRepository {
 
     private final String fileName;
-
-    public FileAccountRepository(String fileName) {
-        this.fileName = fileName;
-    }
 
     @Override
     public Set<Long> getAllAccountsByClientId(long clientId) {
         HashSet<Long> numbers = new HashSet<>();
         String string = readFile();
-        List<Integer> clientPos = getPositionsByPattern(string, "clientId");
+        List<Integer> clientsPos = getPositionsByPattern(string, "clientId");
         List<Integer> numbersPos = getPositionsByPattern(string, "number");
-        for ( int i = 0; i < clientPos.size(); i++ ) {
-            if (readValue(string, clientPos.get(i)) == clientId)
+        for ( int i = 0; i < clientsPos.size(); i++ ) {
+            if (readValue(string, clientsPos.get(i)) == clientId)
                 numbers.add(readValue(string, numbersPos.get(i)));
         }
         return numbers;
     }
 
+    @Override
     public void updateAccountByClientId(long clientId, long oldNumber, long newNumber) {
         String string = readFile();
-        List<Integer> clientPos = getPositionsByPattern(string, "clientId");
+        List<Integer> clientsPos = getPositionsByPattern(string, "clientId");
         List<Integer> numbersPos = getPositionsByPattern(string, "number");
-        for ( int i = 0; i < clientPos.size(); i++ ) {
-            if (readValue(string, clientPos.get(i)) == clientId)
+        for ( int i = 0; i < clientsPos.size(); i++ ) {
+            if (readValue(string, clientsPos.get(i)) == clientId)
                 if (readValue(string, numbersPos.get(i)) == oldNumber) {
                     try (PrintWriter out = new PrintWriter(fileName)) {
                         out.write(updateValue(string, numbersPos.get(i), newNumber));

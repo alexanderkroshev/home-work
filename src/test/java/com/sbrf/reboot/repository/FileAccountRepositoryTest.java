@@ -1,23 +1,17 @@
 package com.sbrf.reboot.repository;
 
 import com.sbrf.reboot.repository.impl.FileAccountRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 class FileAccountRepositoryTest {
 
     String filePath = "src/main/resources/Accounts.txt";
     FileAccountRepository accountRepository = new FileAccountRepository(filePath);
-
-    @AfterEach
-    public void makeInitial() {
-        accountRepository.updateAccountByClientId(1L, 444L, 333L);
-    }
 
     @Test
     void onlyPersonalAccounts() {
@@ -47,6 +41,7 @@ class FileAccountRepositoryTest {
         }};
 
         assertEquals(expected, actualAccounts);
+        accountRepository.updateAccountByClientId(clientId, 444L, 333L);
     }
 
 }
