@@ -1,15 +1,12 @@
 package com.sbrf.reboot;
 
-import java.util.ArrayList;
+import lombok.RequiredArgsConstructor;
 import java.util.List;
 
-public class Cassette<T> {
+@RequiredArgsConstructor
+public class Cassette<T extends Banknote> {
 
-    private List<T> banknotes;
-
-    public Cassette(ArrayList<T> banknotes) {
-        this.banknotes = banknotes;
-    }
+    private final List<T> banknotes;
 
     public int getCountBanknotes() {
         return banknotes.size();
