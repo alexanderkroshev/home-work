@@ -24,9 +24,9 @@ public class Main {
 
         System.out.println(ListUtils.getFirst(ints));
         System.out.println(ListUtils.getFirst(stringList));
-        System.out.println(ListUtils.getFirst(list));
-//        System.out.println(ListUtils.getLast(stringList));
-//        System.out.println(ListUtils.getLast(list));
+//        System.out.println(ListUtils.getFirst(list));
+        System.out.println(ListUtils.getLast(ints));
+
 
 
 //вернуть getHead(get first el), getlast; на входе лист<T> на выходе 1 или посл эл, если пустой то вернём Optional
