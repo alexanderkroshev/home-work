@@ -15,14 +15,13 @@ public class Main {
             add(3);
         }};
         List<String> stringList = new ArrayList<String>() {{
+            add(null);
             add("abc");
             add("cde");
         }};
 
         List<String> list = new ArrayList<>();
-      //  list.add("23");
 
-        System.out.println(ListUtils.getFirst(ints));
         System.out.println(ListUtils.getFirst(stringList));
 //        System.out.println(ListUtils.getFirst(list));
         System.out.println(ListUtils.getLast(ints));
