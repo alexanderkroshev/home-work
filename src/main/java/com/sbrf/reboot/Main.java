@@ -23,8 +23,9 @@ public class Main {
         List<String> list = new ArrayList<>();
 
         System.out.println(ListUtils.getFirst(stringList));
-//        System.out.println(ListUtils.getFirst(list));
-        System.out.println(ListUtils.getLast(ints));
+        System.out.println(ListUtils.getFirst(list));
+        System.out.println(ListUtils.getLast(stringList));
+        System.out.println(ListUtils.getLast(list));
 
 
 
