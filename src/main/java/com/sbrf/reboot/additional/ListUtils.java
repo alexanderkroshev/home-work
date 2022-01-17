@@ -6,17 +6,11 @@ import java.util.Optional;
 public class ListUtils {
 
     public static <T> Optional<T> getFirst(List<T> list) {
-        if (list.isEmpty())
-            return Optional.empty();
-        else
-            return Optional.ofNullable(list.get(0));
+        return list.isEmpty() ? Optional.empty() : Optional.ofNullable(list.get(0));
     }
 
     public static <T> Optional<T> getLast(List<T> list) {
-        if (list.isEmpty())
-            return Optional.empty();
-        else
-            return Optional.ofNullable(list.get(list.size() - 1));
+        return list.isEmpty() ? Optional.empty() : Optional.ofNullable(list.get(list.size() - 1));
     }
 
 }

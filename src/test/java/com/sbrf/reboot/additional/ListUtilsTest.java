@@ -11,10 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ListUtilsTest {
 
-    private final List<Integer> integerList = new ArrayList<>(Arrays.asList(1, 2, null));
-    private final List<String> stringList = new ArrayList<>(Arrays.asList(null, "cde", "efg"));
+    private final List<Integer> integerList = new ArrayList<>(Arrays.asList(1, 2, 3));
     private final List<String> emptyList = new ArrayList<>();
-
 
     @Test
     void getFirst() {
@@ -22,18 +20,17 @@ class ListUtilsTest {
     }
 
     @Test
-    void getFirstOfEmptyList() {
+    void getFirstFromEmptyList() {
         assertEquals(Optional.empty(), ListUtils.getFirst(emptyList));
     }
 
-
     @Test
     void getLast() {
-        assertEquals(stringList.get(stringList.size() - 1), ListUtils.getLast(stringList).get());
+        assertEquals(integerList.get(integerList.size() - 1), ListUtils.getLast(integerList).get());
     }
 
     @Test
-    void getLastOfEmptyList() {
+    void getLastFromEmptyList() {
         assertEquals(Optional.empty(), ListUtils.getLast(emptyList));
     }
 
