@@ -1,6 +1,8 @@
 package com.sbrf.reboot.collections;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -95,6 +97,7 @@ public class CollectionsTest {
      */
     @Test
     public void addPicture() {
+
         @AllArgsConstructor
         class Person {
 
@@ -102,6 +105,7 @@ public class CollectionsTest {
             private int eyes;
             private int brow;
             private int mouth;
+
         }
 
         LinkedHashSet<Person> pictures = null;
