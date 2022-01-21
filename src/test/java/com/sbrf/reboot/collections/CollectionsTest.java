@@ -32,7 +32,9 @@ public class CollectionsTest {
 
         List<String> students = null;
 
-        students = new LinkedList<>(Arrays.asList("Kozlov", "Ivanov", "Petrov", "Sidorov"));
+        students = new LinkedList<>(Arrays.asList("Ivanov", "Petrov", "Sidorov"));
+
+        students.add(0, "Kozlov");
 
         assertEquals(4, students.size());
     }
