@@ -1,8 +1,6 @@
 package com.sbrf.reboot.collections;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -34,7 +32,7 @@ public class CollectionsTest {
 
         List<String> students = null;
 
-        students = new ArrayList<>(Arrays.asList("Kozlov", "Ivanov", "Petrov", "Sidorov"));
+        students = new LinkedList<>(Arrays.asList("Kozlov", "Ivanov", "Petrov", "Sidorov"));
 
         assertEquals(4, students.size());
     }
