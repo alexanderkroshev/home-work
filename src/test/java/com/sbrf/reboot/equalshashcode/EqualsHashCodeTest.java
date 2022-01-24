@@ -55,7 +55,6 @@ public class EqualsHashCodeTest {
             return result;
         }
 
-
     }
 
 
@@ -72,7 +71,6 @@ public class EqualsHashCodeTest {
         car2.color = "black";
         car2.releaseDate = new GregorianCalendar(2020, 0, 25);
         car2.maxSpeed = 10;
-
 
         Assertions.assertTrue(car1.equals(car2));
     }
@@ -109,7 +107,6 @@ public class EqualsHashCodeTest {
         car2.maxSpeed = 10;
 
         Assertions.assertEquals(car1.hashCode(), car2.hashCode());
-
     }
 
     @Test
@@ -127,7 +124,6 @@ public class EqualsHashCodeTest {
         car2.maxSpeed = 10;
 
         Assertions.assertNotEquals(car1.hashCode(), car2.hashCode());
-
     }
 
 
