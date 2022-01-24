@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class EqualsHashCodeTest {
 
-     class Car {
+    class Car {
         String model;
         String color;
         Calendar releaseDate;
@@ -20,39 +20,47 @@ public class EqualsHashCodeTest {
             //Рефлексивность: объект должен равняться самому себе
             if (o == this)
                 return true;
-            if(o == null)
+
+            //сравнение с null и сравнение на однотипность:для любого заданного значения
+            if (o == null || this.getClass() != o.getClass())
                 return false;
-            if(getClass()!= o.getClass())
+
+            //преобразование типа параметра o
+            Car car = (Car) o;
+            //проверка всех полей на равентсво и проверка полей у this на null чтобы избежать NPE
+            if (maxSpeed != car.maxSpeed)
                 return false;
-            if(!((Car) o).model.equals(model))
+
+            if (!Objects.equals(model, car.model))
                 return false;
-            if(!((Car) o).color.equals(color))
+
+            if (!Objects.equals(color, car.color))
                 return false;
-            if(!((Car) o).releaseDate.equals(releaseDate))
+
+            if (!Objects.equals(releaseDate, car.releaseDate))
                 return false;
-            if(maxSpeed != ((Car) o).maxSpeed)
-                return false;
+
             return true;
         }
 
         @Override
-         public int hashCode() {
-            final int prime =31;//??? почему именно 31?
-            int result =1;
-            result = prime*result + (model == null ? 0 : model.hashCode());
-            result = prime*result + (color == null ? 0 : color.hashCode());
-            result = prime*result + (releaseDate == null ? 0 : releaseDate.hashCode());
-            result = prime*result + maxSpeed;
+        public int hashCode() {
+            final int prime = 31;//??? почему именно 31?
+            int result = 1;
+            result = prime * result + (model == null ? 0 : model.hashCode());
+            result = prime * result + (color == null ? 0 : color.hashCode());
+            result = prime * result + (releaseDate == null ? 0 : releaseDate.hashCode());
+            result = prime * result + maxSpeed;
 
             return result;
         }
 
 
+    }
 
-     }
 
     @Test
-    public  void assertTrueEquals() {
+    public void assertTrueEquals() {
         Car car1 = new Car();
         car1.model = "Mercedes";
         car1.color = "black";
@@ -87,7 +95,7 @@ public class EqualsHashCodeTest {
     }
 
     @Test
-    public void successEqualsHashCode(){
+    public void successEqualsHashCode() {
         Car car1 = new Car();
         car1.model = "Mercedes";
         car1.color = "black";
@@ -100,12 +108,12 @@ public class EqualsHashCodeTest {
         car2.releaseDate = new GregorianCalendar(2020, 0, 25);
         car2.maxSpeed = 10;
 
-        Assertions.assertEquals(car1.hashCode(),car2.hashCode());
+        Assertions.assertEquals(car1.hashCode(), car2.hashCode());
 
     }
 
     @Test
-    public void failEqualsHashCode(){
+    public void failEqualsHashCode() {
         Car car1 = new Car();
         car1.model = "Mercedes";
         car1.color = "black";
@@ -118,7 +126,7 @@ public class EqualsHashCodeTest {
         car2.releaseDate = new GregorianCalendar(2017, 0, 25);
         car2.maxSpeed = 10;
 
-        Assertions.assertNotEquals(car1.hashCode(),car2.hashCode());
+        Assertions.assertNotEquals(car1.hashCode(), car2.hashCode());
 
     }
 
