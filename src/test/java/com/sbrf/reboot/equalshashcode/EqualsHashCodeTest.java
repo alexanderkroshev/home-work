@@ -27,25 +27,16 @@ public class EqualsHashCodeTest {
 
             //преобразование типа параметра o
             Car car = (Car) o;
-            //проверка всех полей на равентсво и проверка полей у this на null чтобы избежать NPE
-            if (maxSpeed != car.maxSpeed)
-                return false;
-
-            if (!Objects.equals(model, car.model))
-                return false;
-
-            if (!Objects.equals(color, car.color))
-                return false;
-
-            if (!Objects.equals(releaseDate, car.releaseDate))
-                return false;
-
-            return true;
+            //проверка всех полей на равентсво
+            return maxSpeed == car.maxSpeed
+                    && Objects.equals(model, car.model)
+                    && Objects.equals(color, car.color)
+                    && Objects.equals(releaseDate, car.releaseDate);
         }
 
         @Override
         public int hashCode() {
-            final int prime = 31;//??? почему именно 31?
+            final int prime = 31;
             int result = 1;
             result = prime * result + (model == null ? 0 : model.hashCode());
             result = prime * result + (color == null ? 0 : color.hashCode());
@@ -122,7 +113,7 @@ public class EqualsHashCodeTest {
         car2.color = "white";
         car2.releaseDate = new GregorianCalendar(2017, 0, 25);
         car2.maxSpeed = 10;
-
+        System.out.println(car1.hashCode());
         Assertions.assertNotEquals(car1.hashCode(), car2.hashCode());
     }
 
