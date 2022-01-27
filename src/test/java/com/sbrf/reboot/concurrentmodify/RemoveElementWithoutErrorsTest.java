@@ -34,6 +34,7 @@ public class RemoveElementWithoutErrorsTest {
 
     @Test
     public void successRemoveElementWithoutErrors() {
+
         Integer integer;
         Iterator<Integer> iterator = list.listIterator();
         while (iterator.hasNext()) {
