@@ -1,6 +1,6 @@
 package com.sbrf.reboot.concurrentmodify;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RemoveElementWithoutErrorsTest {
 
-    List<Integer> list = new ArrayList(Arrays.asList(1, 2, 3));
+    List<Integer> list;
     List<Integer> list2 = new ArrayList(Arrays.asList(2, 3));
 
-    @AfterEach
+    @BeforeEach
     void init() {
         list = new ArrayList(Arrays.asList(1, 2, 3));
     }
@@ -38,7 +38,7 @@ public class RemoveElementWithoutErrorsTest {
         Integer integer;
         Iterator<Integer> iterator = list.listIterator();
         while (iterator.hasNext()) {
-            integer =  iterator.next();
+            integer = iterator.next();
             if (integer == 1)
                 iterator.remove();
         }
