@@ -27,12 +27,14 @@ public class FunctionalInterfaceTest {
     }
 
     static class ListConverter<T> {
+
         public List<String> toJsonsList(@NonNull List<T> someObjects, ObjectToJsonFunction<T> objectToJsonFunction) {
             List<String> result = new ArrayList<>();
             if (someObjects.isEmpty())
                 throw new IllegalArgumentException("The list is empty");
 
             //add code here...
+         //   someObjects.stream().map(x-> ObjectToJsonFuncti)
 
             return result;
         }
