@@ -2,11 +2,13 @@ package com.sbrf.reboot.streams;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,7 +23,7 @@ public class StreamTest {
 
         List<Integer> expectedIntegers = Arrays.asList(3, 6, 8, 9);
 
-        List<Integer> actualIntegers = null; //add code here
+        List<Integer> actualIntegers = integers.stream().sorted().collect(Collectors.toList());
 
         assertEquals(expectedIntegers, actualIntegers);
     }
@@ -36,7 +38,7 @@ public class StreamTest {
 
         List<Integer> expectedIntegers = Arrays.asList(6, 8);
 
-        List<Integer> actualIntegers = null; //add code here
+        List<Integer> actualIntegers = integers.stream().filter(x -> x % 2 == 0).collect(Collectors.toList());
 
         assertEquals(expectedIntegers, actualIntegers);
 
@@ -49,10 +51,17 @@ public class StreamTest {
      */
     @AllArgsConstructor
     @EqualsAndHashCode
-    class Book {
+    @Getter
+    class Book implements Comparable<Book>{
         private String name;
         private String author;
         private BigDecimal price;
+
+        @Override
+        public int compareTo(Book o) {
+            return this.price.compareTo(o.price);
+        }
+
     }
 
     @Test
@@ -71,7 +80,8 @@ public class StreamTest {
 
         );
 
-        List<Book> actualBooks = null; //add code here
+        List<Book> actualBooks = books.stream().filter(x->x.author.equals("Maria")).
+                sorted().collect(Collectors.toList());
 
         assertEquals(expectedBooks, actualBooks);
 
@@ -88,10 +98,25 @@ public class StreamTest {
 
         List<String> expectedContracts = Arrays.asList("M-NCC-1-CH", "M-NCC-2-US", "M-NCC-3-NH");
 
-        List<String> actualContracts = null; //add code here
+        List<String> actualContracts = contracts.stream().map(x->
+                x="M-"+x).collect(Collectors.toList());
 
         assertEquals(expectedContracts, actualContracts);
 
     }
+
+    @Test
+    public void modifiedList() {
+        List<String> contracts = Arrays.asList("NCC-1-CH", "NCC-2-US", "NCC-3-NH");
+
+        List<String> expectedContracts = Arrays.asList("M-NCC-1-CH", "M-NCC-2-US", "M-NCC-3-NH");
+
+        List<String> actualContracts = contracts.stream().map(x->
+                x="M-"+x).collect(Collectors.toList());
+
+        assertEquals(expectedContracts, actualContracts);
+
+    }
+
 
 }
