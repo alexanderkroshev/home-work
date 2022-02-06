@@ -105,18 +105,6 @@ public class StreamTest {
 
     }
 
-    @Test
-    public void modifiedList() {
-        List<String> contracts = Arrays.asList("NCC-1-CH", "NCC-2-US", "NCC-3-NH");
-
-        List<String> expectedContracts = Arrays.asList("M-NCC-1-CH", "M-NCC-2-US", "M-NCC-3-NH");
-
-        List<String> actualContracts = contracts.stream().map(x->
-                x="M-"+x).collect(Collectors.toList());
-
-        assertEquals(expectedContracts, actualContracts);
-
-    }
 
 
 }
