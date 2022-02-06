@@ -8,7 +8,10 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -105,6 +108,35 @@ public class StreamTest {
 
     }
 
+    @Test
+    public void maxList() {
+        List<Integer> list = Arrays.asList(1,4,6,8,3);
+
+          Integer max = list.stream().mapToInt(x->x).
+                  max().orElseThrow(NoSuchFieldError::new);
+
+        assertEquals(8,  max);
+
+    }
+
+    @Test
+    public void allMatchList() {
+        List<Integer> list = Arrays.asList(1,4,6,8,3);
+
+        Boolean allMatch = list.stream().allMatch(x->x>0);
+
+        assertEquals(true,  allMatch);
+
+    }
+
+    @Test
+    public void generateList() {
+        List<Integer> generate = Stream.generate(() -> new Random().nextInt(10))
+                .limit(5).collect(Collectors.toList());
+
+        assertEquals(5,  generate.size());
+
+    }
 
 
 }
