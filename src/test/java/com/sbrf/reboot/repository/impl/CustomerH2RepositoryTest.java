@@ -36,12 +36,12 @@ class CustomerH2RepositoryTest {
     }
 
     @Test
-    void deleteCustomer() {
+    void findCustomerByName() {
 
         List<Customer> customers = customerRepository.findByName("Maria");
-        System.out.println(customers);
 
-        assertTrue(customers.size() != 0);
+        assertTrue(customers.stream().map(Customer::getName).allMatch(x->x.contains("Maria")));
+
     }
 
 
