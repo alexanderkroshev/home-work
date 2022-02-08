@@ -6,17 +6,16 @@ import com.sbrf.reboot.repository.CustomerRepository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CustomerH2Repository implements CustomerRepository {
 
     public static void main(String[] args) {
         CustomerH2Repository repository = new CustomerH2Repository();
-        //   repository.createCustomer();
+       // repository.createCustomer("Guk", "guk@mail");
         //("Bob", "bob@email.ru");
         List<Customer> customers = repository.getAll();
         System.out.println(customers);
-        System.out.println(customers.stream().map(x -> x.getId()).collect(Collectors.toList()));
+        // System.out.println(customers.stream().map(x -> x.getId()).collect(Collectors.toList()));
     }
 
     private final String JDBC_DRIVER = "org.h2.Driver";
@@ -71,9 +70,10 @@ public class CustomerH2Repository implements CustomerRepository {
     }
 
 
-    //  public boolean createCustomer(String name, String eMail) {
     @Override
-    public void createCustomer() {
+    public boolean createCustomer(String name, String eMail) {
+
+        boolean savedOrNot = false;
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()) {
 
@@ -81,13 +81,16 @@ public class CustomerH2Repository implements CustomerRepository {
 
             String sql;
 
-            sql = "INSERT INTO CUSTOMER (name, email) " + "VALUES('Krosh', 'krosh@mail')";
+            sql = "INSERT INTO CUSTOMER (name, email) " + "VALUES('" + name + "','" + eMail + "')";
             stmt.executeUpdate(sql);
+            savedOrNot= true;
 
         } catch (SQLException | ClassNotFoundException se) {
             se.printStackTrace();
         }
-        //return true;
+       // return savedOrNot;
+        return savedOrNot;
+
     }
 }
 

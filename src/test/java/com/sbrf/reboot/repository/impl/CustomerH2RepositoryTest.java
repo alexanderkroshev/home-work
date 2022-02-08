@@ -21,7 +21,7 @@ class CustomerH2RepositoryTest {
 
     @Test
     void getAll() {
-      //  boolean tomCreated = customerRepository.createCustomer("Tom", "tom@ya.ru");
+        boolean tomCreated = customerRepository.createCustomer("Tom", "tom@ya.ru");
 
         List<Customer> all = customerRepository.getAll();
 
@@ -31,9 +31,9 @@ class CustomerH2RepositoryTest {
     @Test
     void createCustomer() {
 
-     //   boolean mariaCreated = customerRepository.createCustomer("Maria", "maria98@ya.ru");
+        boolean mariaCreated = customerRepository.createCustomer("Maria", "maria98@ya.ru");
 
-    //    assertTrue(mariaCreated);
+        assertTrue(mariaCreated);
     }
 
 
