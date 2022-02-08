@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface CustomerRepository {
 
-    boolean createCustomer(@NonNull String userName, String eMail);
+    //void createCustomer(@NonNull String userName, String eMail);
+    void createCustomer();
 
     List<Customer> getAll();
 
