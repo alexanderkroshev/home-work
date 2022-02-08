@@ -11,4 +11,5 @@ public interface CustomerRepository {
 
     List<Customer> getAll();
 
+    List<Customer> findByName(String name);
 }
