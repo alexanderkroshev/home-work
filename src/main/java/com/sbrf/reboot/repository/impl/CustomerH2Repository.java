@@ -34,7 +34,6 @@ public class CustomerH2Repository implements CustomerRepository {
         List<Customer> customers = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()) {
-
             String sql = "SELECT * FROM CUSTOMER";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -54,7 +53,6 @@ public class CustomerH2Repository implements CustomerRepository {
         boolean savedOrNot = false;
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()) {
-
             String sql;
             sql = "INSERT INTO CUSTOMER (name, email) " + "VALUES('" + name + "','" + eMail + "')";
             stmt.executeUpdate(sql);
@@ -70,11 +68,8 @@ public class CustomerH2Repository implements CustomerRepository {
         List<Customer> customers = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement stmt = conn.createStatement()) {
-
-            String sql;
-            sql = "SELECT * FROM CUSTOMER WHERE NAME = '" + name + "'";
+            String sql = "SELECT * FROM CUSTOMER WHERE NAME = '" + name + "'";
             ResultSet rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 customers.add(new Customer(rs.getLong("id"),
                         rs.getString("name"),

@@ -38,9 +38,9 @@ class CustomerH2RepositoryTest {
     @Test
     void findCustomerByName() {
 
-        List<Customer> customers = customerRepository.findByName("Maria");
+        List<Customer> customers = customerRepository.findByName("maria");
 
-        assertTrue(customers.stream().map(Customer::getName).allMatch(x->x.contains("Maria")));
+        assertTrue(customers.stream().map(Customer::getName).allMatch(x->x.contains("maria")));
 
     }
 
