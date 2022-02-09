@@ -24,10 +24,11 @@ class CustomerH2RepositoryTest {
 
     @Test
     void getAll() {
+
         boolean tomCreated = customerRepository.createCustomer("Tom", "tom@ya.ru");
 
         List<Customer> all = customerRepository.getAll();
-        System.out.println("getAll"+all);//
+
         assertTrue(all.size() != 0);
     }
 
@@ -35,8 +36,6 @@ class CustomerH2RepositoryTest {
     void createCustomer() {
 
         boolean mariaCreated = customerRepository.createCustomer("Maria", "maria98@ya.ru");
-        List<Customer> all = customerRepository.getAll();//
-        System.out.println("createCustomer"+all);//
 
         assertTrue(mariaCreated);
     }
