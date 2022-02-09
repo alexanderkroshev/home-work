@@ -6,7 +6,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CustomerH2RepositoryTest {
@@ -16,6 +19,7 @@ class CustomerH2RepositoryTest {
     @BeforeAll
     public static void before() {
         customerRepository = new CustomerH2Repository();
+        customerRepository.truncate();
     }
 
     @Test
@@ -23,7 +27,7 @@ class CustomerH2RepositoryTest {
         boolean tomCreated = customerRepository.createCustomer("Tom", "tom@ya.ru");
 
         List<Customer> all = customerRepository.getAll();
-
+        System.out.println("getAll"+all);//
         assertTrue(all.size() != 0);
     }
 
@@ -31,6 +35,8 @@ class CustomerH2RepositoryTest {
     void createCustomer() {
 
         boolean mariaCreated = customerRepository.createCustomer("Maria", "maria98@ya.ru");
+        List<Customer> all = customerRepository.getAll();//
+        System.out.println("createCustomer"+all);//
 
         assertTrue(mariaCreated);
     }
@@ -38,11 +44,11 @@ class CustomerH2RepositoryTest {
     @Test
     void findCustomerByName() {
 
-        List<Customer> customers = customerRepository.findByName("maria");
+        boolean bobCreated = customerRepository.createCustomer("Bob", "bob@ya.ru");
 
-        assertTrue(customers.stream().map(Customer::getName).allMatch(x->x.contains("maria")));
+        List<Customer> customers = customerRepository.findByName("bob");
 
+        assertTrue(customers.get(0).getName().toLowerCase(Locale.ROOT).contains("bob"));
     }
-
 
 }
