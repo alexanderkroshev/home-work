@@ -29,7 +29,15 @@ public class CustomerH2Repository implements CustomerRepository {
     public List<Customer> getAll() {
         List<Customer> customers = new ArrayList<>();
         String sql = "SELECT * FROM CUSTOMER";
-        withStatement(stmt -> withResultSet(customers, sql, stmt));
+        withStatement(stmt -> {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                customers.add(new Customer(rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getString("email")));
+            }
+            rs.close();
+        });
         return customers;
     }
 
@@ -49,7 +57,15 @@ public class CustomerH2Repository implements CustomerRepository {
     public List<Customer> findByName(String name) {
         List<Customer> customers = new ArrayList<>();
         String sql = "SELECT * FROM CUSTOMER WHERE UPPER(NAME) LIKE '%" + name.toUpperCase(Locale.ROOT) + "%'";
-        withStatement(stmt -> withResultSet(customers, sql, stmt));
+        withStatement(stmt -> {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                customers.add(new Customer(rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getString("email")));
+            }
+            rs.close();
+        });
         return customers;
     }
 
@@ -67,16 +83,6 @@ public class CustomerH2Repository implements CustomerRepository {
         } catch (SQLException | ClassNotFoundException se) {
             throw new RuntimeException(se);
         }
-    }
-
-    private void withResultSet(List<Customer> customers, String sql, Statement stmt) throws SQLException {
-        ResultSet rs = stmt.executeQuery(sql);
-        while (rs.next()) {
-            customers.add(new Customer(rs.getLong("id"),
-                    rs.getString("name"),
-                    rs.getString("email")));
-        }
-        rs.close();
     }
 
 }
