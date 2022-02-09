@@ -53,7 +53,6 @@ public class CustomerH2Repository implements CustomerRepository {
         return customers;
     }
 
-
     @Override
     public void truncate() {
         String sql = "TRUNCATE TABLE CUSTOMER";
