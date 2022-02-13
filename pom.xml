@@ -66,8 +66,6 @@
             <version>${h2.version}</version>
             <scope>runtime</scope>
         </dependency>
-
-
     </dependencies>
 
     <build>
