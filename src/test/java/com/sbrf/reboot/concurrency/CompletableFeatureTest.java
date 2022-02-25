@@ -26,6 +26,7 @@ public class CompletableFeatureTest {
         SomeService someService = new SomeService(reportService);
 
         someService.doSomething();
+      //  System.out.println(someService.doSomething());
 
         verify(reportService, times(1)).sendReport("Отправляю отчет");
     }

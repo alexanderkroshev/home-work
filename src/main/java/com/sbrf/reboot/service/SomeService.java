@@ -22,6 +22,10 @@ public class SomeService {
 
                 // Реализуйте отправку отчета используя CompletableFuture
                 String reportResult = reportService.sendReport("Отправляю отчет");
+//                CompletableFuture<String> completableFuture = new CompletableFuture<>();
+//                executor.submit(()->{
+//                    completableFuture.complete(reportResult);
+//                });
 
                 //какой то код..
                 Thread.sleep(Duration.ofSeconds(3).toMillis());
